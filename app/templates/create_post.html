@@ -1,0 +1,22 @@
+<!-- app/templates/create_post.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Post</title>
+</head>
+<body>
+    <h1>Create New Post</h1>
+    <form method="POST" action="/create_post">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+        <label for="author_email">Your Email:</label><br>
+        <input type="email" id="author_email" name="author_email" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

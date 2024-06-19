@@ -1,0 +1,39 @@
+services:
+  app:
+    container_name: my-flask-app
+    build:
+      context: ./flask
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - 2tier_bridge
+
+  db:
+    container_name: my-flask-app-db
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    expose:
+      - "3306"
+    volumes:
+      - ./db/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - 2tier_bridge
+
+networks:
+  2tier_bridge:
+    driver: bridge
+
